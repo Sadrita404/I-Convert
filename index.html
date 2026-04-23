@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="bg-animation"></div>
-
     <nav>
       <div class="logo-area">
         <img
@@ -24,10 +22,10 @@
     <main>
       <div class="content-wrapper">
         <section class="hero-section">
-          <div class="hero-badge">Beest</div>
+          <div class="hero-badge">Beest Hack Club</div>
           <h1>
-            The ultimate tool to
-            <span class="text-gradient">Format Image</span>
+            Convert
+            <span class="text-gradient">Image </span>
           </h1>
           <p class="description">
             High-fidelity image conversion. JPG, PNG, WebP or PDF instantly.
@@ -91,6 +89,100 @@
       </p>
     </footer>
 
+    <script src="https://raw.githack.com/strangerintheq/rgba/0.0.8/rgba.js"></script>
+    <script>
+      RGBA(`
+    #define PI 3.1415926538
+    #define CELL 0.01
+    #define GRID 50.0
+
+    float sdOrientedBox( in vec2 p, in vec2 a, in vec2 b, float th ) {
+        float l = length(b-a);
+        vec2  d = (b-a)/l;
+        vec2  q = (p-(a+b)*0.5);
+              q = mat2(d.x,-d.y,d.y,d.x)*q;
+              q = abs(q)-vec2(l,th)*0.5;
+        return length(max(q,0.0)) + min(max(q.x,q.y),0.0);    
+    }
+
+    float sdCross( in vec2 p, in float size ) {
+      float width = 0.05;
+      float line = 0.01;
+      float outer0 = sdOrientedBox(p, vec2(size, size), vec2(-size, -size), width);
+      float inner0 = sdOrientedBox(p, vec2(size - line, size - line), vec2(-size + line, -size + line), width - line * 2.5);
+      float outer1 = sdOrientedBox(p, vec2(-size, size), vec2(size, -size), width);
+      float inner1 = sdOrientedBox(p, vec2(-size + line, size - line), vec2(size - line, -size + line), width - line * 2.5);
+      float innerCross = min(inner0, inner1);
+      float outerCross = min(outer0, outer1);
+      return max(outerCross, -innerCross);
+    }
+
+    float sdSquare( in vec2 p, in float size ) {
+      float width = 0.05;
+      float line = 0.01;
+      float outer = sdOrientedBox(p, vec2(size, size), vec2(-size, -size), size * 2.65);
+      float inner = sdOrientedBox(p, vec2(size - line, size - line), vec2(-size + line, -size + line), (size * 2.65) - line * 2.5);
+      return max(outer, -inner);
+    }
+          
+    vec2 grid(vec2 uv) {
+      return floor(uv * GRID) * CELL;
+    }
+
+    vec3 getColor(vec2 uv, float d, float n) {  
+      // PALETTE CHANGE: White and Dark Yellow
+      vec3 fgColor = vec3(1.0, 1.0, 1.0);       // White
+      vec3 fgColor2 = vec3(0.8, 0.6, 0.0);      // Dark Yellow/Gold
+      vec3 bgColor = vec3(0.1, 0.1, 0.05);      // Very Dark Yellow/Brown background
+      
+      if (n < 0.1) {
+        float mx = mod(uv.x, CELL * 2.);
+        float my = mod(uv.y, CELL * 2.);
+        return mix(bgColor, fgColor2, step(CELL, min(mx, my)));
+      }
+      
+      if (d < 0.1) {
+        float mx = mod(uv.x, CELL * 2.);
+        float my = mod(uv.y, CELL * 2.);
+        return mix(bgColor, fgColor, step(CELL, min(mx, my)));
+      }
+      
+      return bgColor;
+    }
+
+    void main() {
+      vec2 uv = gl_FragCoord.xy / resolution.xy*2.-1.;
+      uv.y *= resolution.y/resolution.x;
+      
+      vec2 ruv = uv;
+      float d = 1.;
+      float n = 1.;
+      vec2 muv = uv;
+      
+      muv = grid(muv);
+      vec2 guv = grid(ruv);
+      
+      float step = 0.125;
+      float row = floor((uv.y - 0.01) * 4.0) * step;
+      float diffX = sin(time + row * 40.) * 0.5;
+      
+      float stepX = step;
+      float stepY = step;
+      
+      float t = mod(pow(mod(uv.x * 0.25 + time * 0.5, 1.0), 8.) * 0.25, 0.25);
+      
+      d = sdCross(mod(guv, step * 2.) - vec2(stepX, stepY), 0.18);
+      n = min(sdCross(mod(guv + vec2(step, t), step * 2.) - vec2(stepX, stepY), 0.054), n);
+      n = min(sdSquare(mod(guv + vec2(step, t), step * 2.) - vec2(stepX, stepY), 0.054), n);
+      
+      d = smoothstep(0.0, 0.01, d);
+      n = smoothstep(0.0, 0.01, n);
+
+      vec3 color = getColor(ruv, d, n);
+      gl_FragColor = vec4(color, 1.);
+    }
+    `);
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
