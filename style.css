@@ -18,7 +18,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- Animated Background --- */
+/* Background Animation */
 .bg-animation {
     position: fixed;
     top: 0; left: 0;
@@ -32,8 +32,8 @@ body {
     position: absolute;
     width: 200%; height: 200%;
     top: -50%; left: -50%;
-    background: radial-gradient(circle at 50% 50%, rgba(35, 131, 226, 0.05) 0%, transparent 50%);
-    animation: rotateBg 20s linear infinite;
+    background: radial-gradient(circle at 50% 50%, rgba(35, 131, 226, 0.08) 0%, transparent 50%);
+    animation: rotateBg 15s linear infinite;
 }
 
 @keyframes rotateBg {
@@ -41,48 +41,49 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* --- Nav --- */
+/* Slimmer Nav Section */
 nav {
     display: flex;
     align-items: center;
-    padding: 24px 60px;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(15px);
+    padding: 15px 40px; /* Reduced padding */
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-.logo-area { display: flex; align-items: center; gap: 20px; }
+.logo-area { display: flex; align-items: center; gap: 15px; }
 
-/* Large Logo & Branding */
-.main-logo { width: 56px; height: 56px; object-fit: contain; }
-.logo-text { font-weight: 800; font-size: 32px; letter-spacing: -1px; }
-
-/* --- Hero Section --- */
-.hero-section {
-    padding: 100px 0 60px 0;
-    text-align: center;
+/* Logo: Reduced from 4cm to a slightly smaller but still prominent size */
+.main-logo { 
+    height: 60px; /* Adjusted to be smaller and cleaner */
+    width: auto; 
+    object-fit: contain;
 }
 
+.logo-text { font-weight: 800; font-size: 28px; letter-spacing: -1px; }
+
+/* Hero Section */
+.hero-section { padding: 50px 0 30px 0; text-align: center; }
 .hero-badge {
     display: inline-block;
-    padding: 6px 16px;
+    padding: 6px 14px;
     background: #e1f0ff;
     color: var(--accent-blue);
-    border-radius: 30px;
-    font-size: 14px;
+    border-radius: 40px;
+    font-size: 13px;
     font-weight: 800;
-    margin-bottom: 24px;
+    margin-bottom: 15px;
 }
 
 h1 {
-    font-size: 82px; /* Increased Size */
+    font-size: 60px;
     font-weight: 900;
-    letter-spacing: -4px;
+    letter-spacing: -3px;
     line-height: 1;
-    margin-bottom: 24px;
+    margin-bottom: 15px;
 }
 
 .text-gradient {
@@ -93,37 +94,38 @@ h1 {
 
 .description {
     color: var(--text-sub);
-    font-size: 24px; /* Increased Size */
-    max-width: 800px;
+    font-size: 20px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
-/* --- Converter Card --- */
+/* Upload Area with Drop Support */
 .content-wrapper { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
 .converter-card {
     background: white;
-    border-radius: 32px;
+    border-radius: 30px;
     box-shadow: var(--shadow-xl);
     border: 1px solid white;
     overflow: hidden;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .upload-zone {
     padding: 100px 40px;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    border: 3px dashed transparent;
 }
 
-.upload-zone:hover { background: #fafafa; transform: scale(0.99); }
+.upload-zone:hover { background: #f8fbff; border-color: var(--accent-blue); }
 
 .upload-icon-wrapper {
     width: 100px;
     height: 100px;
     background: #f0f3f5;
-    border-radius: 50%;
+    border-radius: 30%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,9 +133,8 @@ h1 {
     font-size: 40px;
 }
 
-/* High Visibility Text */
-.upload-text-big { font-size: 32px; font-weight: 800; color: #111; }
-.upload-text-small { font-size: 18px; color: var(--text-sub); margin-top: 12px; }
+.upload-text-big { font-size: 32px; font-weight: 900; color: #111; }
+.upload-text-small { font-size: 18px; color: var(--text-sub); margin-top: 10px; }
 
 .action-bar {
     padding: 40px 60px;
@@ -144,30 +145,27 @@ h1 {
     align-items: center;
 }
 
-.format-selector label { font-size: 20px; font-weight: 700; margin-right: 15px;}
+.format-selector label { font-size: 20px; font-weight: 800; margin-right: 15px;}
 
 select {
-    padding: 12px 24px;
+    padding: 12px 20px;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
     border-radius: 12px;
-    border: 2px solid #ddd;
-    outline: none;
+    border: 2px solid #eee;
 }
 
-/* Premium Button */
 .btn-premium {
     background: var(--premium-gradient);
     color: white;
-    padding: 18px 48px;
-    border-radius: 16px;
+    padding: 18px 45px;
+    border-radius: 15px;
     border: none;
     font-weight: 800;
     font-size: 20px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(35, 131, 226, 0.3);
 }
 
 .shimmer {
@@ -175,18 +173,15 @@ select {
     top: 0; left: -100%;
     width: 50%; height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: shimmer 2s infinite;
+    animation: shimmer 2.5s infinite;
 }
 
 @keyframes shimmer { 100% { left: 200%; } }
 
-/* Preview */
-.preview-section { margin-top: 60px; display: none; }
-.preview-card { background: white; padding: 40px; border-radius: 32px; box-shadow: var(--shadow-xl); text-align: center;}
-#imageWrapper img { max-width: 100%; border-radius: 20px; margin: 30px 0; border: 1px solid #eee; }
+.preview-section { margin-top: 40px; display: none; }
+.preview-card { background: white; padding: 40px; border-radius: 30px; box-shadow: var(--shadow-xl); text-align: center;}
+#imageWrapper img { max-width: 100%; border-radius: 20px; margin: 20px 0; }
 
-/* Footer */
-footer { padding: 80px 0; text-align: center; }
-.badge { background: #1a1a1a; color: white; padding: 6px 14px; border-radius: 8px; font-weight: 700; }
-.footer-text { font-size: 18px; font-weight: 500; }
-.status-text { text-align: center; margin-top: 20px; font-size: 18px; font-weight: 600; color: var(--accent-blue); }
+footer { padding: 60px 0; text-align: center; }
+.badge { background: #1a1a1a; color: white; padding: 6px 12px; border-radius: 8px; font-weight: 800; }
+.status-text { text-align: center; margin-top: 20px; font-size: 18px; font-weight: 700; color: var(--accent-blue); }
