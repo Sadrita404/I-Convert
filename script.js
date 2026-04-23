@@ -9,24 +9,25 @@ const dropZone = document.getElementById('dropZone');
 let originalImage = null;
 let fileName = "converted-image";
 
-// File Selection Handler
+// File Selection
 fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
-// Drag & Drop animations
+// Drag & Drop Handlers
 dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
-    dropZone.style.transform = "scale(0.98)";
-    dropZone.style.backgroundColor = "#f0f7ff";
+    dropZone.style.backgroundColor = "#eef6ff";
+    dropZone.style.borderColor = "#2383e2";
 });
 
 dropZone.addEventListener('dragleave', () => {
-    dropZone.style.transform = "scale(1)";
     dropZone.style.backgroundColor = "transparent";
+    dropZone.style.borderColor = "transparent";
 });
 
 dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
-    dropZone.style.transform = "scale(1)";
+    dropZone.style.backgroundColor = "transparent";
+    dropZone.style.borderColor = "transparent";
     handleFiles(e.dataTransfer.files);
 });
 
@@ -40,13 +41,11 @@ function handleFiles(files) {
             originalImage.src = event.target.result;
             originalImage.onload = () => {
                 actionBar.style.display = 'flex';
-                statusText.innerText = ` Ready to transform: ${file.name}`;
+                statusText.innerText = `✨ File Loaded: ${file.name.toUpperCase()}`;
                 previewArea.style.display = 'none';
             };
         };
         reader.readAsDataURL(file);
-    } else {
-        alert("Please upload a valid image file.");
     }
 }
 
@@ -62,8 +61,7 @@ async function convertImage() {
     previewArea.style.display = 'block';
     imageWrapper.innerHTML = '';
     
-    // Simple visual feedback
-    statusText.innerText = "Converting... Please wait.";
+    statusText.innerText = " PROCESSING...";
 
     if (format === 'application/pdf') {
         const { jsPDF } = window.jspdf;
@@ -76,16 +74,10 @@ async function convertImage() {
         const imgData = canvas.toDataURL('image/jpeg', 1.0);
         pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
         
-        imageWrapper.innerHTML = `
-            <div style="padding: 80px; background: #f8f9fa; border: 3px dashed #cbd5e0; border-radius: 20px;">
-                <p style="font-size: 48px;">📄</p>
-                <p style="font-weight: 800; font-size: 24px; margin-top:20px;">PDF Document Ready</p>
-                <p style="color: #718096; margin-top: 10px;">High Quality Vector Container</p>
-            </div>`;
-        
+        imageWrapper.innerHTML = `<div style="padding: 50px; font-weight: 800;">PDF READY FOR DOWNLOAD</div>`;
         downloadBtn.onclick = () => pdf.save(`${fileName}.pdf`);
     } else {
-        const dataUrl = canvas.toDataURL(format, 0.95);
+        const dataUrl = canvas.toDataURL(format, 0.98);
         const imgPreview = new Image();
         imgPreview.src = dataUrl;
         imageWrapper.appendChild(imgPreview);
@@ -98,6 +90,5 @@ async function convertImage() {
         };
     }
     
-    statusText.innerText = "✅ Conversion Successful!";
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    statusText.innerText = "✅ DONE!";
 }
