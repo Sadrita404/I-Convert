@@ -1,3 +1,8 @@
+/**
+ * I Convert - Professional Image Processing Engine
+ * Handles image rendering, format conversion, and PDF generation.
+ */
+
 const fileInput = document.getElementById('fileInput');
 const actionBar = document.getElementById('actionBar');
 const previewArea = document.getElementById('previewArea');
@@ -9,13 +14,13 @@ const dropZone = document.getElementById('dropZone');
 let originalImage = null;
 let fileName = "converted-image";
 
-// File Selection
+// Listener for the Big Upload Button
 fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
-// Drag & Drop Handlers
+// Drag & Drop Functionality for the Massive Zone
 dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
-    dropZone.style.backgroundColor = "#eef6ff";
+    dropZone.style.backgroundColor = "#f0f7ff";
     dropZone.style.borderColor = "#2383e2";
 });
 
@@ -31,29 +36,52 @@ dropZone.addEventListener('drop', (e) => {
     handleFiles(e.dataTransfer.files);
 });
 
+/**
+ * Validates and loads the chosen file into memory
+ */
 function handleFiles(files) {
     const file = files[0];
     if (file && file.type.startsWith('image/')) {
         fileName = file.name.split('.')[0];
         const reader = new FileReader();
+        
         reader.onload = (event) => {
             originalImage = new Image();
             originalImage.src = event.target.result;
             originalImage.onload = () => {
+                // Smooth transition to show options
                 actionBar.style.display = 'flex';
-                statusText.innerText = `✨ File Loaded: ${file.name.toUpperCase()}`;
+                statusText.innerText = `READY TO PROCESS: ${file.name.toUpperCase()}`;
                 previewArea.style.display = 'none';
+                
+                // Ensure the document body is tall enough to scroll
+                document.body.style.overflowY = "auto";
+                document.documentElement.style.overflowY = "auto";
+
+                // Scroll down slightly to show options
+                window.scrollTo({
+                    top: actionBar.offsetTop - 100,
+                    behavior: 'smooth'
+                });
             };
         };
         reader.readAsDataURL(file);
+    } else {
+        alert("Please select a valid image file (JPG, PNG, WEBP).");
     }
 }
 
+/**
+ * Core Conversion Logic using HTML5 Canvas and jsPDF
+ */
 async function convertImage() {
+    if (!originalImage) return;
+
     const format = document.getElementById('formatSelect').value;
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
+    // Maintain original dimensions for high quality
     canvas.width = originalImage.width;
     canvas.height = originalImage.height;
     ctx.drawImage(originalImage, 0, 0);
@@ -61,8 +89,9 @@ async function convertImage() {
     previewArea.style.display = 'block';
     imageWrapper.innerHTML = '';
     
-    statusText.innerText = " PROCESSING...";
+    statusText.innerText = "⚡ ENGINE RUNNING: TRANSFORMING DATA...";
 
+    // Handle PDF separately using the jspdf library
     if (format === 'application/pdf') {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({
@@ -74,9 +103,17 @@ async function convertImage() {
         const imgData = canvas.toDataURL('image/jpeg', 1.0);
         pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
         
-        imageWrapper.innerHTML = `<div style="padding: 50px; font-weight: 800;">PDF READY FOR DOWNLOAD</div>`;
-        downloadBtn.onclick = () => pdf.save(`${fileName}.pdf`);
-    } else {
+        imageWrapper.innerHTML = `
+            <div style="padding: 60px; border: 3px solid #eee; border-radius: 20px; background: white;">
+                <p style="font-size: 100px;">📄</p>
+                <p style="font-weight: 900; font-size: 28px; margin-top: 20px; color: #111;">PDF PACKAGE GENERATED</p>
+                <p style="color: #666;">High-resolution vector-wrapped document ready.</p>
+            </div>`;
+            
+        downloadBtn.onclick = () => pdf.save(`${fileName}-converted.pdf`);
+    } 
+    // Handle Standard Image Formats
+    else {
         const dataUrl = canvas.toDataURL(format, 0.98);
         const imgPreview = new Image();
         imgPreview.src = dataUrl;
@@ -84,11 +121,18 @@ async function convertImage() {
 
         downloadBtn.onclick = () => {
             const link = document.createElement('a');
-            link.download = `${fileName}.${format.split('/')[1] === 'jpeg' ? 'jpg' : format.split('/')[1]}`;
+            link.download = `${fileName}-converted.${format.split('/')[1] === 'jpeg' ? 'jpg' : format.split('/')[1]}`;
             link.href = dataUrl;
             link.click();
         };
     }
     
-    statusText.innerText = "✅ DONE!";
+    statusText.innerText = " CONVERSION COMPLETE. ENJOY YOUR FILE!";
+    
+    // Auto-scroll to the preview
+    setTimeout(() => {
+        const yOffset = -50; 
+        const y = previewArea.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({top: y, behavior: 'smooth'});
+    }, 200);
 }
