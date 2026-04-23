@@ -17,7 +17,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Shader Canvas Management */
 canvas {
     position: fixed;
     top: 0;
@@ -27,7 +26,6 @@ canvas {
     height: 100vh;
 }
 
-/* --- NAVIGATION --- */
 nav {
     display: flex;
     align-items: center;
@@ -44,7 +42,6 @@ nav {
 .main-logo { height: 65px; width: auto; object-fit: contain; }
 .logo-text { font-weight: 900; font-size: 32px; letter-spacing: -1.5px; color: #000; }
 
-/* --- HERO SECTION --- */
 .hero-section { 
     padding: 70px 0 40px 0; 
     text-align: center; 
@@ -86,7 +83,6 @@ h1 {
     font-weight: 400;
 }
 
-/* --- THE BIG CHOOSE FILE OPTION --- */
 .content-wrapper { max-width: 1100px; margin: 0 auto; padding: 0 30px; position: relative; z-index: 5; }
 
 .converter-card {
@@ -100,7 +96,13 @@ h1 {
 }
 
 .upload-zone { 
-    padding: 130px 40px; /* Very big size */
+    height: 3cm; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 40px; 
     text-align: center; 
     cursor: pointer; 
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -114,33 +116,32 @@ h1 {
 }
 
 .upload-icon-wrapper {
-    width: 140px; 
-    height: 140px; 
+    width: 60px; 
+    height: 60px; 
     background: #f4f7f9; 
-    border-radius: 40px;
+    border-radius: 15px;
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    margin: 0 auto 40px; 
-    font-size: 60px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    margin: 0; 
+    font-size: 30px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
 }
 
 .upload-text-big { 
-    font-size: 44px; 
+    font-size: 32px; 
     font-weight: 900; 
     color: #111; 
     letter-spacing: -1px;
 }
 
 .upload-text-small { 
-    font-size: 20px; 
+    font-size: 16px; 
     color: var(--text-sub); 
-    margin-top: 15px; 
+    margin-top: 0; 
     font-weight: 500;
 }
 
-/* --- ACTION BAR --- */
 .action-bar {
     padding: 50px 80px; 
     background: #f9fafb; 
@@ -162,7 +163,6 @@ select {
     background: white;
 }
 
-/* --- BUTTONS --- */
 .btn-premium {
     background: var(--premium-gradient); 
     color: white; 
@@ -185,7 +185,6 @@ select {
 
 @keyframes shimmer { 100% { left: 200%; } }
 
-/* --- RESULTS AREA --- */
 .preview-section { margin-top: 50px; display: none; }
 .preview-card { 
     background: white; 
@@ -203,7 +202,6 @@ select {
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* --- FOOTER --- */
 footer { padding: 80px 0; text-align: center; color: #fff; }
 .badge { background: #000; color: #fff; padding: 8px 16px; border-radius: 10px; font-weight: 800; }
 .status-text { 

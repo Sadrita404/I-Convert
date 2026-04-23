@@ -1,8 +1,3 @@
-/**
- * I Convert - Professional Image Processing Engine
- * Handles image rendering, format conversion, and PDF generation.
- */
-
 const fileInput = document.getElementById('fileInput');
 const actionBar = document.getElementById('actionBar');
 const previewArea = document.getElementById('previewArea');
@@ -14,10 +9,8 @@ const dropZone = document.getElementById('dropZone');
 let originalImage = null;
 let fileName = "converted-image";
 
-// Listener for the Big Upload Button
 fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
-// Drag & Drop Functionality for the Massive Zone
 dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
     dropZone.style.backgroundColor = "#f0f7ff";
@@ -36,9 +29,6 @@ dropZone.addEventListener('drop', (e) => {
     handleFiles(e.dataTransfer.files);
 });
 
-/**
- * Validates and loads the chosen file into memory
- */
 function handleFiles(files) {
     const file = files[0];
     if (file && file.type.startsWith('image/')) {
@@ -49,16 +39,13 @@ function handleFiles(files) {
             originalImage = new Image();
             originalImage.src = event.target.result;
             originalImage.onload = () => {
-                // Smooth transition to show options
                 actionBar.style.display = 'flex';
                 statusText.innerText = `READY TO PROCESS: ${file.name.toUpperCase()}`;
                 previewArea.style.display = 'none';
                 
-                // Ensure the document body is tall enough to scroll
                 document.body.style.overflowY = "auto";
                 document.documentElement.style.overflowY = "auto";
 
-                // Scroll down slightly to show options
                 window.scrollTo({
                     top: actionBar.offsetTop - 100,
                     behavior: 'smooth'
@@ -71,9 +58,6 @@ function handleFiles(files) {
     }
 }
 
-/**
- * Core Conversion Logic using HTML5 Canvas and jsPDF
- */
 async function convertImage() {
     if (!originalImage) return;
 
@@ -81,7 +65,6 @@ async function convertImage() {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    // Maintain original dimensions for high quality
     canvas.width = originalImage.width;
     canvas.height = originalImage.height;
     ctx.drawImage(originalImage, 0, 0);
@@ -91,7 +74,6 @@ async function convertImage() {
     
     statusText.innerText = "⚡ ENGINE RUNNING: TRANSFORMING DATA...";
 
-    // Handle PDF separately using the jspdf library
     if (format === 'application/pdf') {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({
@@ -112,7 +94,6 @@ async function convertImage() {
             
         downloadBtn.onclick = () => pdf.save(`${fileName}-converted.pdf`);
     } 
-    // Handle Standard Image Formats
     else {
         const dataUrl = canvas.toDataURL(format, 0.98);
         const imgPreview = new Image();
@@ -129,7 +110,6 @@ async function convertImage() {
     
     statusText.innerText = " CONVERSION COMPLETE. ENJOY YOUR FILE!";
     
-    // Auto-scroll to the preview
     setTimeout(() => {
         const yOffset = -50; 
         const y = previewArea.getBoundingClientRect().top + window.pageYOffset + yOffset;
