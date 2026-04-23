@@ -3,241 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Convert | Notion-Style Image Converter</title>
+    <title>I Convert | Professional Image Suite</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-main: #37352f;
-            --text-sub: #787774;
-            --border-color: #ededed;
-            --accent-blue: #2383e2;
-            --hover-bg: #f5f5f5;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            padding-top: 60px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 700px;
-            padding: 20px;
-        }
-
-        /* Notion Header Style */
-        header {
-            margin-bottom: 40px;
-        }
-
-        h1 {
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .description {
-            color: var(--text-sub);
-            font-size: 16px;
-        }
-
-        /* Upload Area */
-        .upload-card {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-bottom: 24px;
-        }
-
-        .upload-card:hover {
-            background-color: var(--hover-bg);
-        }
-
-        #fileInput { display: none; }
-
-        /* Controls Section */
-        .controls {
-            display: none;
-            border-top: 1px solid var(--border-color);
-            padding-top: 24px;
-        }
-
-        .settings-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        select, button {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            background: white;
-            font-size: 14px;
-            cursor: pointer;
-            outline: none;
-        }
-
-        select:focus { border-color: var(--accent-blue); }
-
-        .btn-primary {
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            font-weight: 500;
-        }
-
-        .btn-primary:hover { opacity: 0.9; }
-
-        /* Preview Section */
-        .preview-area {
-            margin-top: 30px;
-            display: none;
-            text-align: center;
-        }
-
-        .preview-area img {
-            max-width: 100%;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 15px;
-        }
-
-        .status {
-            font-size: 14px;
-            color: var(--text-sub);
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="bg-animation"></div>
 
-<div class="container">
-    <header>
-        <h1>🖼️ I Convert</h1>
-        <p class="description">Simple, fast, and private image conversion. Supports PNG, JPG, WebP, and PDF.</p>
-    </header>
-
-    <div class="upload-card" onclick="document.getElementById('fileInput').click()">
-        <p style="font-size: 18px; font-weight: 500;">Click to upload an image</p>
-        <p style="color: var(--text-sub); font-size: 14px;">JPG, PNG, WEBP, etc.</p>
-        <input type="file" id="fileInput" accept="image/*">
-    </div>
-
-    <div class="controls" id="controls">
-        <div class="settings-row">
-            <span>Convert to:</span>
-            <select id="formatSelect">
-                <option value="image/jpeg">JPG</option>
-                <option value="image/png">PNG</option>
-                <option value="image/webp">WebP</option>
-                <option value="application/pdf">PDF</option>
-            </select>
-            <button class="btn-primary" onclick="convertImage()">Convert Now</button>
+    <nav>
+        <div class="logo-area">
+            <img src="1.png" alt="Logo" class="main-logo" onerror="this.src='https://via.placeholder.com/64?text=I'">
+            <span class="logo-text">I Convert</span>
         </div>
-    </div>
+    </nav>
 
-    <div class="preview-area" id="previewArea">
-        <p style="font-weight: 600; text-align: left; margin-bottom: 10px;">Preview & Download</p>
-        <div id="imageWrapper"></div>
-        <br>
-        <button class="btn-primary" id="downloadBtn">Download Converted File</button>
-    </div>
-    
-    <p id="status" class="status"></p>
-</div>
+    <main>
+        <div class="content-wrapper">
+            <section class="hero-section">
+                <div class="hero-badge">v2.0 Professional</div>
+                <h1>The ultimate tool to <span class="text-gradient">Format anything.</span></h1>
+                <p class="description">
+                    Experience high-fidelity image conversion. Transform your assets into JPG, PNG, WebP or PDF instantly.
+                </p>
+            </section>
 
-<script>
-    const fileInput = document.getElementById('fileInput');
-    const controls = document.getElementById('controls');
-    const previewArea = document.getElementById('previewArea');
-    const imageWrapper = document.getElementById('imageWrapper');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const statusText = document.getElementById('status');
+            <div class="converter-card">
+                <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon-wrapper">
+                        <span class="upload-icon">📄</span>
+                    </div>
+                    <p class="upload-text-big">Choose a file or drag it here</p>
+                    <p class="upload-text-small">Supports JPG, PNG, WEBP, and more</p>
+                    <input type="file" id="fileInput" accept="image/*">
+                </div>
 
-    let originalImage = null;
-    let fileName = "converted-image";
+                <div class="action-bar" id="actionBar">
+                    <div class="format-selector">
+                        <label for="formatSelect">Export as:</label>
+                        <select id="formatSelect">
+                            <option value="image/jpeg">JPEG (.jpg)</option>
+                            <option value="image/png">PNG (.png)</option>
+                            <option value="image/webp">WebP (.webp)</option>
+                            <option value="application/pdf">PDF Document (.pdf)</option>
+                        </select>
+                    </div>
+                    <button class="btn-premium" onclick="convertImage()">
+                        <span>Convert Now</span>
+                        <div class="shimmer"></div>
+                    </button>
+                </div>
+            </div>
 
-    // Handle File Upload
-    fileInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            fileName = file.name.split('.')[0];
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                originalImage = new Image();
-                originalImage.src = event.target.result;
-                originalImage.onload = () => {
-                    controls.style.display = 'block';
-                    statusText.innerText = `Loaded: ${file.name}`;
-                };
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    async function convertImage() {
-        const format = document.getElementById('formatSelect').value;
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = originalImage.width;
-        canvas.height = originalImage.height;
-        ctx.drawImage(originalImage, 0, 0);
-
-        previewArea.style.display = 'block';
-        imageWrapper.innerHTML = ''; // Clear previous preview
-
-        if (format === 'application/pdf') {
-            // PDF Logic using jsPDF
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF({
-                orientation: canvas.width > canvas.height ? 'l' : 'p',
-                unit: 'px',
-                format: [canvas.width, canvas.height]
-            });
+            <div class="preview-section" id="previewArea">
+                <div class="preview-card">
+                    <div class="preview-header">
+                        <h3>Conversion Result</h3>
+                        <span class="status-tag">Ready</span>
+                    </div>
+                    <div id="imageWrapper"></div>
+                    <button class="btn-premium download-mode" id="downloadBtn">Download Converted File</button>
+                </div>
+            </div>
             
-            const imgData = canvas.toDataURL('image/jpeg', 1.0);
-            pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
-            
-            const pdfBlob = pdf.output('bloburl');
-            
-            // For PDF preview, we use an iframe or just text since it's a doc
-            imageWrapper.innerHTML = `<p>PDF Generated successfully. Click download to save.</p>`;
-            
-            downloadBtn.onclick = () => {
-                pdf.save(`${fileName}.pdf`);
-            };
-        } else {
-            // Image Logic (JPG, PNG, WebP)
-            const dataUrl = canvas.toDataURL(format, 0.9);
-            const imgPreview = new Image();
-            imgPreview.src = dataUrl;
-            imageWrapper.appendChild(imgPreview);
+            <p id="status" class="status-text"></p>
+        </div>
+    </main>
 
-            downloadBtn.onclick = () => {
-                const link = document.createElement('a');
-                link.download = `${fileName}.${format.split('/')[1]}`;
-                link.href = dataUrl;
-                link.click();
-            };
-        }
-        
-        statusText.innerText = "Conversion complete!";
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-</script>
+    <footer>
+        <p class="footer-text">By <span class="badge">Sadrita Neogi</span> under <span class="badge">Hack Club</span></p>
+    </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
