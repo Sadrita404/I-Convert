@@ -1,78 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>I Convert | Professional Image Suite</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="bg-animation"></div>
 
     <nav>
-        <div class="logo-area">
-            <img src="1.png" alt="Logo" class="main-logo" onerror="this.src='https://via.placeholder.com/64?text=I'">
-            <span class="logo-text">I Convert</span>
-        </div>
+      <div class="logo-area">
+        <img
+          src="1.png"
+          alt="Logo"
+          class="main-logo"
+          onerror="this.src='https://via.placeholder.com/100?text=I'" />
+        <span class="logo-text">I Convert</span>
+      </div>
     </nav>
 
     <main>
-        <div class="content-wrapper">
-            <section class="hero-section">
-                <div class="hero-badge">v2.0 Professional</div>
-                <h1>The ultimate tool to <span class="text-gradient">Format anything.</span></h1>
-                <p class="description">
-                    Experience high-fidelity image conversion. Transform your assets into JPG, PNG, WebP or PDF instantly.
-                </p>
-            </section>
+      <div class="content-wrapper">
+        <section class="hero-section">
+          <div class="hero-badge">Beest</div>
+          <h1>
+            The ultimate tool to
+            <span class="text-gradient">Format Image</span>
+          </h1>
+          <p class="description">
+            High-fidelity image conversion. JPG, PNG, WebP or PDF instantly.
+          </p>
+        </section>
 
-            <div class="converter-card">
-                <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-                    <div class="upload-icon-wrapper">
-                        <span class="upload-icon">📄</span>
-                    </div>
-                    <p class="upload-text-big">Choose a file or drag it here</p>
-                    <p class="upload-text-small">Supports JPG, PNG, WEBP, and more</p>
-                    <input type="file" id="fileInput" accept="image/*">
-                </div>
-
-                <div class="action-bar" id="actionBar">
-                    <div class="format-selector">
-                        <label for="formatSelect">Export as:</label>
-                        <select id="formatSelect">
-                            <option value="image/jpeg">JPEG (.jpg)</option>
-                            <option value="image/png">PNG (.png)</option>
-                            <option value="image/webp">WebP (.webp)</option>
-                            <option value="application/pdf">PDF Document (.pdf)</option>
-                        </select>
-                    </div>
-                    <button class="btn-premium" onclick="convertImage()">
-                        <span>Convert Now</span>
-                        <div class="shimmer"></div>
-                    </button>
-                </div>
+        <div class="converter-card">
+          <div
+            class="upload-zone"
+            id="dropZone"
+            onclick="document.getElementById('fileInput').click()">
+            <div class="upload-icon-wrapper">
+              <span class="upload-icon">📄</span>
             </div>
+            <p class="upload-text-big">CHOOSE A FILE OR DRAG IT HERE</p>
+            <p class="upload-text-small">Supports JPG, PNG, WEBP, and more</p>
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              style="display: none" />
+          </div>
 
-            <div class="preview-section" id="previewArea">
-                <div class="preview-card">
-                    <div class="preview-header">
-                        <h3>Conversion Result</h3>
-                        <span class="status-tag">Ready</span>
-                    </div>
-                    <div id="imageWrapper"></div>
-                    <button class="btn-premium download-mode" id="downloadBtn">Download Converted File</button>
-                </div>
+          <div class="action-bar" id="actionBar">
+            <div class="format-selector">
+              <label for="formatSelect">Export as:</label>
+              <select id="formatSelect">
+                <option value="image/jpeg">JPEG (.jpg)</option>
+                <option value="image/png">PNG (.png)</option>
+                <option value="image/webp">WebP (.webp)</option>
+                <option value="application/pdf">PDF Document (.pdf)</option>
+              </select>
             </div>
-            
-            <p id="status" class="status-text"></p>
+            <button class="btn-premium" onclick="convertImage()">
+              <span>Convert Now</span>
+              <div class="shimmer"></div>
+            </button>
+          </div>
         </div>
+
+        <div class="preview-section" id="previewArea">
+          <div class="preview-card">
+            <div class="preview-header">
+              <h3>Conversion Result</h3>
+            </div>
+            <div id="imageWrapper"></div>
+            <button class="btn-premium download-mode" id="downloadBtn">
+              Download Converted File
+            </button>
+          </div>
+        </div>
+
+        <p id="status" class="status-text"></p>
+      </div>
     </main>
 
     <footer>
-        <p class="footer-text">By <span class="badge">Sadrita Neogi</span> under <span class="badge">Hack Club</span></p>
+      <p class="footer-text">
+        By <span class="badge">Sadrita Neogi</span> under
+        <span class="badge">Hack Club</span>
+      </p>
     </footer>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
