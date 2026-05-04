@@ -10,6 +10,15 @@
 #### This project is a minimalist web tool for instant image conversions like JPG to WebP or PDF. It runs entirely in your browser, meaning your files are never uploaded to a server—keeping everything private. The interface is clean and Notion-inspired, featuring live previews so you can see your results immediately. It’s designed to be a fast, simple, and secure way to handle quick format swaps without any bloat.
 
 ---
+### Inspiration:
+My inspiration was the website that I still use every day *I love PDF* , whenever I open the website, it feel like that one day I can make one for myself too and that's the initial inspiration for me to start this project and finally completed it, and I am happy what I have made.
+
+### Why I built it: 
+Most of the web applications are good and they done the job perfectly but it makes frustrated when we need login just to convert an image there are ads are all over the website which makes the website clunky..So I decided to make one for myself where there will be no login and no ads.
+
+
+
+---
 
 ## Tech Used
   |Tech Stack|
